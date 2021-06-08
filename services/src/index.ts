@@ -1,26 +1,15 @@
 import mongoose from 'mongoose';
 import express, { Application } from 'express';
 import Phone from './models/phone';
-import { graphql, buildSchema } from 'graphql';
-import { ApolloServer, gql } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
+import typeDefs from './graphql/typedefs';
+import resolvers from './graphql/resolvers';
 import * as dotenv from 'dotenv';
 
 dotenv.config({ path: `${__dirname}/../.env` });
 
 const app: Application = express();
 const port: number = 3000;
-
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => 'Hello world!',
-  },
-};
 
 const server: ApolloServer = new ApolloServer({
   typeDefs,
