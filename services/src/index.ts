@@ -1,39 +1,30 @@
-import mongoose from 'mongoose';
-import express, { Application } from 'express';
-import Phone from './models/phone';
+import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import typeDefs from './graphql/typedefs';
-import resolvers from './graphql/resolvers';
+import { buildSchema } from 'type-graphql';
+import { HelloWorldResolver } from './graphql/resolvers/';
 import * as dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
 dotenv.config({ path: `${__dirname}/../.env` });
 
-const app: Application = express();
-const port: number = 3000;
+(async () => {
+  mongoose.connect(process.env.DB_URL as string, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
-const server: ApolloServer = new ApolloServer({
-  typeDefs,
-  resolvers,
-  playground: true,
-});
+  const app = express();
 
-server.applyMiddleware({ app });
+  const apolloServer = new ApolloServer({
+    schema: await buildSchema({
+      resolvers: [HelloWorldResolver],
+    }),
+    context: ({ req, res }) => ({ req, res }),
+  });
 
-mongoose.connect(process.env.DB_URL as string, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+  apolloServer.applyMiddleware({ app, cors: false });
 
-// const newPhone = new Phone({
-//   title: 'Iphone 7 Plus 256gb',
-//   description: 'Good phone.',
-//   photos: [],
-//   price: 25000,
-//   brand: 'Iphone',
-// });
-
-// newPhone.save();
-
-app.listen(port, (): void => {
-  console.log(`Working on port ${port} - ${server.graphqlPath}`);
-});
+  app.listen(4000, () => {
+    console.log('working');
+  });
+})();

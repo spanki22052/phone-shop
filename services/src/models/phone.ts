@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { IPhone } from './interfaces';
+import { IPhone } from '../interfaces/phoneMongoose';
 
 const phoneSchema: Schema = new mongoose.Schema(
   {
