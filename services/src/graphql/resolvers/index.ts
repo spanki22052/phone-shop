@@ -1,5 +1,6 @@
-import { Phone, Resolvers } from '../../generated/graphql';
+import { Phone, Resolvers, Brands } from '../../generated/graphql';
 import PhoneModel from '../../models/phone';
+import BrandModel from '../../models/brand';
 
 interface phoneInterface {
   title: string;
@@ -17,6 +18,9 @@ export const resolvers: Resolvers<phoneInterface> = {
     phoneid: async (_: any, { id }): Promise<any> => {
       return await PhoneModel.findOne({ _id: id });
     },
+    showbrands: async (): Promise<any> => {
+      return await BrandModel.find({});
+    },
   },
 
   Mutation: {
@@ -26,6 +30,20 @@ export const resolvers: Resolvers<phoneInterface> = {
       });
       await newPhone.save();
       return args;
+    },
+
+    addBrand: async (parent, args): Promise<Brands> => {
+      const fullBrandsList = await BrandModel.find({});
+      const dataPicker = fullBrandsList[0].brandslist;
+
+      const newBrands = new BrandModel({
+        brandslist: [...dataPicker, args.title],
+      });
+
+      await BrandModel.deleteMany({});
+      await newBrands.save();
+
+      return { brandslist: ['working'] };
     },
   },
 };

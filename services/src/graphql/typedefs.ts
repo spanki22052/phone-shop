@@ -4,6 +4,7 @@ export default gql`
   type Query {
     hello: String
     phoneid(id: ID!): Phone
+    showbrands: Brands!
   }
 
   type Phone {
@@ -15,6 +16,10 @@ export default gql`
     brand: String
   }
 
+  type Brands {
+    brandslist: [String]
+  }
+
   type Mutation {
     addPhone(
       title: String
@@ -23,5 +28,6 @@ export default gql`
       price: Int
       photos: [String]
     ): Phone
+    addBrand(title: String): Brands
   }
 `;
