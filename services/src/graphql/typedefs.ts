@@ -5,6 +5,7 @@ export default gql`
     hello: String
     phoneid(id: ID!): Phone
     showbrands: Brands!
+    clearBrands: Boolean
   }
 
   type Phone {

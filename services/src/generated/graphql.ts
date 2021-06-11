@@ -61,6 +61,7 @@ export type Query = {
   hello?: Maybe<Scalars['String']>;
   phoneid?: Maybe<Phone>;
   showbrands: Brands;
+  clearBrands?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -158,8 +159,8 @@ export type ResolversTypes = {
   Phone: ResolverTypeWrapper<Phone>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Query: ResolverTypeWrapper<{}>;
-  AdditionalEntityFields: AdditionalEntityFields;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  AdditionalEntityFields: AdditionalEntityFields;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -171,8 +172,8 @@ export type ResolversParentTypes = {
   Phone: Phone;
   ID: Scalars['ID'];
   Query: {};
-  AdditionalEntityFields: AdditionalEntityFields;
   Boolean: Scalars['Boolean'];
+  AdditionalEntityFields: AdditionalEntityFields;
 };
 
 export type UnionDirectiveArgs = {   discriminatorField?: Maybe<Scalars['String']>;
@@ -234,6 +235,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   phoneid?: Resolver<Maybe<ResolversTypes['Phone']>, ParentType, ContextType, RequireFields<QueryPhoneidArgs, 'id'>>;
   showbrands?: Resolver<ResolversTypes['Brands'], ParentType, ContextType>;
+  clearBrands?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {

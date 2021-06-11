@@ -21,6 +21,10 @@ export const resolvers: Resolvers<phoneInterface> = {
     showbrands: async (): Promise<any> => {
       return await BrandModel.find({});
     },
+    clearBrands: async (): Promise<boolean> => {
+      await BrandModel.deleteMany({});
+      return true;
+    },
   },
 
   Mutation: {
@@ -34,7 +38,8 @@ export const resolvers: Resolvers<phoneInterface> = {
 
     addBrand: async (parent, args): Promise<Brands> => {
       const fullBrandsList = await BrandModel.find({});
-      const dataPicker = fullBrandsList[0].brandslist;
+      const dataPicker =
+        fullBrandsList === undefined ? fullBrandsList[0].brandslist : [];
 
       const newBrands = new BrandModel({
         brandslist: [...dataPicker, args.title],
