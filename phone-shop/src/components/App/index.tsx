@@ -1,13 +1,12 @@
 import { MDBRipple } from 'mdb-react-ui-kit';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchPhones } from '../../redux/action-creators/phone';
-import { useTypedSelector } from '../../redux/hooks/useTypedSelector';
-import { phonesActionType } from '../../redux/reducers/types';
+import {
+  phonesActionType,
+  sidebarActionTypes,
+} from '../../redux/reducers/types';
 
 const App = () => {
-  const state = useTypedSelector((state) => state.phone);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,6 +24,14 @@ const App = () => {
 
   return (
     <div className="main-block">
+      <button
+        className="btn btn-primary"
+        onClick={() =>
+          dispatch({ type: sidebarActionTypes.UPDATE_SIDEBAR_STATE })
+        }
+      >
+        Open sidebar
+      </button>
       <MDBRipple
         className="bg-image hover-overlay shadow-1-strong rounded"
         rippleTag="div"

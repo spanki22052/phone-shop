@@ -6,9 +6,17 @@ export interface phone {
   brand: string;
 }
 
+export interface sidebarStateAction {
+  type: string;
+}
+
 export interface phoneAction {
   type: string;
   payload?: any;
+}
+
+export enum sidebarActionTypes {
+  UPDATE_SIDEBAR_STATE = 'UPDATE_SIDEBAR_STATE',
 }
 
 export enum phonesActionType {
