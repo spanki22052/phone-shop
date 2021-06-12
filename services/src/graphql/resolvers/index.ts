@@ -39,7 +39,7 @@ export const resolvers: Resolvers<phoneInterface> = {
     addBrand: async (parent, args): Promise<Brands> => {
       const fullBrandsList = await BrandModel.find({});
       const dataPicker =
-        fullBrandsList === undefined ? fullBrandsList[0].brandslist : [];
+        fullBrandsList !== undefined ? fullBrandsList[0].brandslist : [];
 
       const newBrands = new BrandModel({
         brandslist: [...dataPicker, args.title],
