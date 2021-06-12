@@ -6,6 +6,7 @@ export default gql`
     phoneid(id: ID!): Phone
     showbrands: Brands!
     clearBrands: Boolean
+    showphones: [Phone]
   }
 
   type Phone {

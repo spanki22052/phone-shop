@@ -1,26 +1,47 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import React from 'react';
-import SidebarComponent from './Sidebar';
 import NavbarComponent from './Navbar';
 import App from './App';
-import { Icon, Menu, Segment, Sidebar, Header, Image } from 'semantic-ui-react';
+import { Icon, Menu, Segment, Sidebar } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux';
-import { sidebarActionTypes } from '../redux/reducers/types';
 import { useTypedSelector } from '../redux/hooks/useTypedSelector';
+import styled from 'styled-components';
+import { sidebarActionTypes, phonesActionType } from '../redux/reducers/types';
+import { useQuery, gql } from '@apollo/client';
 
 const Locator = () => {
-  const sidebarVisibleState = useTypedSelector((state) => state.sidebarState);
   const dispatch = useDispatch();
+
+  const phonesList = gql`
+    query {
+      showphones {
+        title
+        description
+      }
+    }
+  `;
+
+  const { loading, error, data } = useQuery(phonesList);
+  dispatch({
+    type: phonesActionType.FETCH_PHONES,
+    payload: data !== undefined ? data.showphones : {},
+  });
+
+  const sidebarVisibleState = useTypedSelector((state) => state.sidebarState);
   return (
-    <div style={{ height: '100vh' }} className="locator">
+    <div style={{ backgroundColor: '#C3E0E5', height: '100vh' }}>
       <Router>
         <Sidebar.Pushable as={Segment}>
           <Sidebar
             as={Menu}
-            animation="overlay"
+            animation="push"
             icon="labeled"
             inverted
             vertical
+            onHide={() =>
+              dispatch({
+                type: sidebarActionTypes.UPDATE_SIDEBAR_STATE,
+              })
+            }
             visible={sidebarVisibleState}
             width="thin"
           >
@@ -38,8 +59,10 @@ const Locator = () => {
             </Menu.Item>
           </Sidebar>
 
-          <Sidebar.Pusher dimmed={sidebarVisibleState}>
-            <SidebarComponent />
+          <Sidebar.Pusher
+            style={{ backgroundColor: '#C3E0E5' }}
+            dimmed={sidebarVisibleState}
+          >
             <NavbarComponent />
             <Switch>
               <Route path="/" exact>
@@ -48,7 +71,7 @@ const Locator = () => {
             </Switch>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
-      </Router>
+      </Router>{' '}
     </div>
   );
 };

@@ -62,6 +62,7 @@ export type Query = {
   phoneid?: Maybe<Phone>;
   showbrands: Brands;
   clearBrands?: Maybe<Scalars['Boolean']>;
+  showphones?: Maybe<Array<Maybe<Phone>>>;
 };
 
 
@@ -236,6 +237,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   phoneid?: Resolver<Maybe<ResolversTypes['Phone']>, ParentType, ContextType, RequireFields<QueryPhoneidArgs, 'id'>>;
   showbrands?: Resolver<ResolversTypes['Brands'], ParentType, ContextType>;
   clearBrands?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showphones?: Resolver<Maybe<Array<Maybe<ResolversTypes['Phone']>>>, ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {

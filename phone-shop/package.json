@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.3.20",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -10,8 +11,10 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/styled-components": "^5.1.10",
     "antd": "^4.16.2",
     "bootstrap": "5.0.1",
+    "graphql": "^15.5.0",
     "mdb-react-ui-kit": "^1.0.0-beta6",
     "node-sass": "^6.0.0",
     "react": "^17.0.2",

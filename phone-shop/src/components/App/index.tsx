@@ -5,23 +5,25 @@ import {
   phonesActionType,
   sidebarActionTypes,
 } from '../../redux/reducers/types';
+// import { useQuery, gql } from '@apollo/client';
 
 const App = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch({
-      type: phonesActionType.FETCH_PHONES,
-      payload: {
-        title: 'Iphone 7',
-        price: 2000,
-        photos: ['1'],
-        description: '1',
-        brand: 'apple',
-      },
-    });
-  }, []);
+  //   const phonesList = gql`
+  //     query {
+  //       showphones {
+  //         title
+  //         description
+  //       }
+  //     }
+  //   `;
 
+  //   const { loading, error, data } = useQuery(phonesList);
+  //   dispatch({
+  //     type: phonesActionType.FETCH_PHONES,
+  //     payload: data !== undefined ? data.showphones : {},
+  //   });
   return (
     <div className="main-block">
       <button

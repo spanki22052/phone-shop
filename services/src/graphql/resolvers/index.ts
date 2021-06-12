@@ -25,6 +25,9 @@ export const resolvers: Resolvers<phoneInterface> = {
       await BrandModel.deleteMany({});
       return true;
     },
+    showphones: async (): Promise<phoneInterface[]> => {
+      return await PhoneModel.find();
+    },
   },
 
   Mutation: {
