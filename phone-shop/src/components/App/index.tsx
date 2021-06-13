@@ -5,21 +5,6 @@ import { sidebarActionTypes } from '../../redux/reducers/types';
 
 const App = () => {
   const dispatch = useDispatch();
-
-  //   const phonesList = gql`
-  //     query {
-  //       showphones {
-  //         title
-  //         description
-  //       }
-  //     }
-  //   `;
-
-  //   const { loading, error, data } = useQuery(phonesList);
-  //   dispatch({
-  //     type: phonesActionType.FETCH_PHONES,
-  //     payload: data !== undefined ? data.showphones : {},
-  //   });
   return (
     <div className="main-block">
       <button
@@ -36,11 +21,6 @@ const App = () => {
         style={{ maxWidth: '500px' }}
         rippleColor="light"
       >
-        <img
-          src="https://www.apple.com/v/iphone/home/ax/images/meta/iphone__dgs666g2ou82_og.png?202106010112"
-          alt="phone-image"
-          className="w-100"
-        />
         <a href="#!">
           <div
             className="mask"
