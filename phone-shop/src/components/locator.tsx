@@ -4,7 +4,6 @@ import App from './App';
 import { Icon, Menu, Segment, Sidebar } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../redux/hooks/useTypedSelector';
-import styled from 'styled-components';
 import { sidebarActionTypes, phonesActionType } from '../redux/reducers/types';
 import { useQuery, gql } from '@apollo/client';
 
@@ -33,7 +32,7 @@ const Locator = () => {
         <Sidebar.Pushable as={Segment}>
           <Sidebar
             as={Menu}
-            animation="push"
+            animation="slide out"
             icon="labeled"
             inverted
             vertical
@@ -71,7 +70,7 @@ const Locator = () => {
             </Switch>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
-      </Router>{' '}
+      </Router>
     </div>
   );
 };

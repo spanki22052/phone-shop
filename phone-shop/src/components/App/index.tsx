@@ -1,10 +1,6 @@
 import { MDBRipple } from 'mdb-react-ui-kit';
-import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  phonesActionType,
-  sidebarActionTypes,
-} from '../../redux/reducers/types';
+import { sidebarActionTypes } from '../../redux/reducers/types';
 // import { useQuery, gql } from '@apollo/client';
 
 const App = () => {
