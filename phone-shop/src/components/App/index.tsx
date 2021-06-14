@@ -1,9 +1,10 @@
 import { MDBRipple } from 'mdb-react-ui-kit';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { sidebarActionTypes } from '../../redux/reducers/types';
+import { phone, sidebarActionTypes } from '../../redux/reducers/types';
 import styled from 'styled-components';
 import { useQuery, gql } from '@apollo/client';
+import { ProductBlock } from '../Elements/ProductBlock';
 
 const NewsBlock = styled.div`
   width: 60%;
@@ -83,6 +84,15 @@ const NewsImage = styled.img`
   min-width: 250px;
 `;
 
+const ProductsHolder = styled.div`
+  width: 85%;
+  margin: auto;
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+`;
+
 const newsList = gql`
   query {
     lastnew {
@@ -93,15 +103,22 @@ const newsList = gql`
       new
       categories
     }
+
+    showphones {
+      title
+      description
+      price
+      photos
+      brand
+    }
   }
 `;
 
 const App = () => {
   const { loading, error, data } = useQuery(newsList);
   const dispatch = useDispatch();
-  console.log(data.lastnew);
 
-  return (
+  return data !== undefined ? (
     <div className="main-block">
       <button
         className="btn btn-primary"
@@ -111,29 +128,44 @@ const App = () => {
       >
         Open sidebar
       </button>
-      {data !== undefined && (
-        <NewsBlock>
-          <NewsImage src={data.lastnew.photos[0]} alt="newImage" />
-          <span className="text-holder">
-            <h1>{data.lastnew.title}</h1>
-            <h2>{data.lastnew.subtitle}</h2>
-            {data.lastnew.new.split('<ph>').map((el: string, index: number) => {
-              return (
-                index < 2 &&
-                (index === 0 ? (
-                  <p key={index}>{el}</p>
-                ) : (
-                  <p key={index}>
-                    {el}
-                    <span className="see-more">...see more</span>
-                  </p>
-                ))
-              );
-            })}
-          </span>
-        </NewsBlock>
-      )}
+      <NewsBlock>
+        <NewsImage src={data.lastnew.photos[0]} alt="newImage" />
+        <span className="text-holder">
+          <h1>{data.lastnew.title}</h1>
+          <h2>{data.lastnew.subtitle}</h2>
+          {data.lastnew.new.split('<ph>').map((el: string, index: number) => {
+            return (
+              index < 2 &&
+              (index === 0 ? (
+                <p key={index}>{el}</p>
+              ) : (
+                <p key={index}>
+                  {el}
+                  <span className="see-more">...see more</span>
+                </p>
+              ))
+            );
+          })}
+        </span>
+      </NewsBlock>
+      {console.log(data.showphones)}
+
+      <ProductsHolder>
+        {data.showphones.map((el: any, index: number) => {
+          return (
+            <ProductBlock
+              title={el.title}
+              photos={el.photos}
+              price={el.price}
+              description={el.description}
+              brand={el.brand}
+            />
+          );
+        })}
+      </ProductsHolder>
     </div>
+  ) : (
+    <h1>Loading</h1>
   );
 };
 
