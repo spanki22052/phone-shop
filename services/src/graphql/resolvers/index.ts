@@ -1,6 +1,8 @@
-import { Phone, Resolvers, Brands } from '../../generated/graphql';
+import { Phone, Resolvers, Brands, News } from '../../generated/graphql';
 import PhoneModel from '../../models/phone';
 import BrandModel from '../../models/brand';
+import NewsSchema from '../../models/news';
+import { news } from '../../interfaces/news';
 
 interface phoneInterface {
   title: string;
@@ -28,6 +30,9 @@ export const resolvers: Resolvers<phoneInterface> = {
     showphones: async (): Promise<phoneInterface[]> => {
       return await PhoneModel.find();
     },
+    shownews: async (): Promise<news[]> => {
+      return await NewsSchema.find();
+    },
   },
 
   Mutation: {
@@ -36,6 +41,13 @@ export const resolvers: Resolvers<phoneInterface> = {
         ...args,
       });
       await newPhone.save();
+      return args;
+    },
+    addNew: async (parent, args, context): Promise<News> => {
+      const newNew = new NewsSchema({
+        ...args,
+      });
+      await newNew.save();
       return args;
     },
 

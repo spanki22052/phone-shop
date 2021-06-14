@@ -29,6 +29,7 @@ export type Brands = {
 export type Mutation = {
   __typename?: 'Mutation';
   addPhone?: Maybe<Phone>;
+  addNew?: Maybe<News>;
   addBrand?: Maybe<Brands>;
 };
 
@@ -42,8 +43,28 @@ export type MutationAddPhoneArgs = {
 };
 
 
+export type MutationAddNewArgs = {
+  date?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  subtitle?: Maybe<Scalars['String']>;
+  photos?: Maybe<Array<Maybe<Scalars['String']>>>;
+  new?: Maybe<Scalars['String']>;
+  categories?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+
 export type MutationAddBrandArgs = {
   title?: Maybe<Scalars['String']>;
+};
+
+export type News = {
+  __typename?: 'News';
+  date?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  subtitle?: Maybe<Scalars['String']>;
+  photos?: Maybe<Array<Maybe<Scalars['String']>>>;
+  new?: Maybe<Scalars['String']>;
+  categories?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type Phone = {
@@ -63,6 +84,7 @@ export type Query = {
   showbrands: Brands;
   clearBrands?: Maybe<Scalars['Boolean']>;
   showphones?: Maybe<Array<Maybe<Phone>>>;
+  shownews?: Maybe<Array<Maybe<News>>>;
 };
 
 
@@ -157,6 +179,7 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']>;
   Mutation: ResolverTypeWrapper<{}>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  News: ResolverTypeWrapper<News>;
   Phone: ResolverTypeWrapper<Phone>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Query: ResolverTypeWrapper<{}>;
@@ -170,6 +193,7 @@ export type ResolversParentTypes = {
   String: Scalars['String'];
   Mutation: {};
   Int: Scalars['Int'];
+  News: News;
   Phone: Phone;
   ID: Scalars['ID'];
   Query: {};
@@ -219,7 +243,18 @@ export type BrandsResolvers<ContextType = any, ParentType extends ResolversParen
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addPhone?: Resolver<Maybe<ResolversTypes['Phone']>, ParentType, ContextType, RequireFields<MutationAddPhoneArgs, never>>;
+  addNew?: Resolver<Maybe<ResolversTypes['News']>, ParentType, ContextType, RequireFields<MutationAddNewArgs, never>>;
   addBrand?: Resolver<Maybe<ResolversTypes['Brands']>, ParentType, ContextType, RequireFields<MutationAddBrandArgs, never>>;
+};
+
+export type NewsResolvers<ContextType = any, ParentType extends ResolversParentTypes['News'] = ResolversParentTypes['News']> = {
+  date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  subtitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  photos?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  new?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  categories?: Resolver<Maybe<Array<Maybe<ResolversTypes['String']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type PhoneResolvers<ContextType = any, ParentType extends ResolversParentTypes['Phone'] = ResolversParentTypes['Phone']> = {
@@ -238,11 +273,13 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   showbrands?: Resolver<ResolversTypes['Brands'], ParentType, ContextType>;
   clearBrands?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showphones?: Resolver<Maybe<Array<Maybe<ResolversTypes['Phone']>>>, ParentType, ContextType>;
+  shownews?: Resolver<Maybe<Array<Maybe<ResolversTypes['News']>>>, ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
   Brands?: BrandsResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  News?: NewsResolvers<ContextType>;
   Phone?: PhoneResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };

@@ -1,5 +1,4 @@
 import { gql } from 'apollo-server-express';
-
 export default gql`
   type Query {
     hello: String
@@ -7,6 +6,7 @@ export default gql`
     showbrands: Brands!
     clearBrands: Boolean
     showphones: [Phone]
+    shownews: [News]
   }
 
   type Phone {
@@ -16,6 +16,15 @@ export default gql`
     photos: [String]
     price: Int
     brand: String
+  }
+
+  type News {
+    date: String
+    title: String
+    subtitle: String
+    photos: [String]
+    new: String
+    categories: [String]
   }
 
   type Brands {
@@ -30,6 +39,14 @@ export default gql`
       price: Int
       photos: [String]
     ): Phone
+    addNew(
+      date: String
+      title: String
+      subtitle: String
+      photos: [String]
+      new: String
+      categories: [String]
+    ): News
     addBrand(title: String): Brands
   }
 `;

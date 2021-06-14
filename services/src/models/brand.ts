@@ -1,5 +1,4 @@
 import mongoose, { Schema } from 'mongoose';
-import { Brands } from '../interfaces/brand';
 
 const brandsSchema = new mongoose.Schema<{ brandslist: string[] }>(
   {
