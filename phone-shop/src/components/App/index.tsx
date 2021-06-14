@@ -1,7 +1,5 @@
-import { MDBRipple } from 'mdb-react-ui-kit';
-import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { phone, sidebarActionTypes } from '../../redux/reducers/types';
+import { sidebarActionTypes } from '../../redux/reducers/types';
 import styled from 'styled-components';
 import { useQuery, gql } from '@apollo/client';
 import { ProductBlock } from '../Elements/ProductBlock';

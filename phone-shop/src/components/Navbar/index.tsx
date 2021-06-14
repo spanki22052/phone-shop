@@ -2,6 +2,9 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Label } from 'semantic-ui-react';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from '../../redux/hooks/useTypedSelector';
+import { cartActionType, sidebarActionTypes } from '../../redux/reducers/types';
 
 const Button = styled.button`
   background-color: #274472;
@@ -27,6 +30,18 @@ const WidthCheker = styled.div`
     }
   }
 `;
+
+const LabelStyle = {
+  left: '25px',
+  top: '10px',
+  width: '18px',
+  height: '18px',
+  display: 'flex',
+  justifyContent: 'center',
+  borderRadius: '20px',
+  fontSize: '8px',
+  alignItems: 'center',
+};
 
 const InputForm = styled.form`
   width: 300px;
@@ -55,6 +70,8 @@ const Form = styled.form`
 
 const NavbarComponent = () => {
   const [searchbarState, setSearchbar] = useState('');
+  const cartVisibleState = useTypedSelector((state) => state.cartState);
+  const dispatch = useDispatch();
 
   return (
     <WidthCheker className="WidthChecker">
@@ -66,7 +83,10 @@ const NavbarComponent = () => {
               <InputForm
                 onSubmit={(e) => {
                   e.preventDefault();
-                  console.log(searchbarState);
+                  dispatch({
+                    type: cartActionType.ADD_ONE,
+                    payload: 1,
+                  });
                 }}
                 className="searchbar"
               >
@@ -117,24 +137,13 @@ const NavbarComponent = () => {
                   <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
                 </svg>
 
-                <Label
-                  color="red"
-                  floating
-                  style={{
-                    left: '35px',
-                    top: '10px',
-                    width: '20px',
-                    height: '20px',
-                    padding: '5px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    borderRadius: '20px',
-                    fontSize: '10px',
-                    alignItems: 'center',
-                  }}
-                >
-                  9
-                </Label>
+                {cartVisibleState === 0 ? (
+                  <div />
+                ) : (
+                  <Label color="red" floating style={LabelStyle}>
+                    {cartVisibleState}
+                  </Label>
+                )}
               </div>
             </NavEnd>
           </Navbar.Collapse>
