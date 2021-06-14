@@ -33,6 +33,11 @@ export const resolvers: Resolvers<phoneInterface> = {
     shownews: async (): Promise<news[]> => {
       return await NewsSchema.find();
     },
+    lastnew: async (): Promise<News> => {
+      const newElement: [News] = await NewsSchema.find();
+      const lastNew = newElement.splice(-1)[0];
+      return await lastNew;
+    },
   },
 
   Mutation: {

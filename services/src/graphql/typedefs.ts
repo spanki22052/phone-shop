@@ -7,6 +7,7 @@ export default gql`
     clearBrands: Boolean
     showphones: [Phone]
     shownews: [News]
+    lastnew: News
   }
 
   type Phone {

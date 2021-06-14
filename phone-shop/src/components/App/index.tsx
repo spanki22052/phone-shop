@@ -85,7 +85,7 @@ const NewsImage = styled.img`
 
 const newsList = gql`
   query {
-    shownews {
+    lastnew {
       date
       title
       subtitle
@@ -99,6 +99,7 @@ const newsList = gql`
 const App = () => {
   const { loading, error, data } = useQuery(newsList);
   const dispatch = useDispatch();
+  console.log(data.lastnew);
 
   return (
     <div className="main-block">
@@ -112,25 +113,23 @@ const App = () => {
       </button>
       {data !== undefined && (
         <NewsBlock>
-          <NewsImage src={data.shownews[0].photos[0]} alt="newImage" />
+          <NewsImage src={data.lastnew.photos[0]} alt="newImage" />
           <span className="text-holder">
-            <h1>{data.shownews[0].title}</h1>
-            <h2>{data.shownews[0].subtitle}</h2>
-            {data.shownews[0].new
-              .split('<ph>')
-              .map((el: string, index: number) => {
-                return (
-                  index < 2 &&
-                  (index === 0 ? (
-                    <p key={index}>{el}</p>
-                  ) : (
-                    <p key={index}>
-                      {el}
-                      <span className="see-more">...see more</span>
-                    </p>
-                  ))
-                );
-              })}
+            <h1>{data.lastnew.title}</h1>
+            <h2>{data.lastnew.subtitle}</h2>
+            {data.lastnew.new.split('<ph>').map((el: string, index: number) => {
+              return (
+                index < 2 &&
+                (index === 0 ? (
+                  <p key={index}>{el}</p>
+                ) : (
+                  <p key={index}>
+                    {el}
+                    <span className="see-more">...see more</span>
+                  </p>
+                ))
+              );
+            })}
           </span>
         </NewsBlock>
       )}
