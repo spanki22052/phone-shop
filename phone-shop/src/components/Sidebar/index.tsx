@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { sidebarActionTypes } from '../../redux/reducers/types';
 import styled from 'styled-components';
 
-const Logo = styled.h1`
+export const Logo = styled.h1`
   font-family: Montserrat;
   font-style: normal;
   font-weight: bold;
@@ -48,6 +48,7 @@ const SmartphoneSVG = () => {
 const SidebarComponent = () => {
   const sidebarVisibleState = useTypedSelector((state) => state.sidebarState);
   const dispatch = useDispatch();
+
   return (
     <Sidebar
       as={Menu}

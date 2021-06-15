@@ -37,7 +37,7 @@ const NewsBlock = styled.div`
       cursor: pointer;
     }
 
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 1000px) {
       width: 90%;
 
       h1 {
@@ -88,7 +88,9 @@ const ProductsHolder = styled.div`
   display: flex;
   margin-top: 20px;
   justify-content: space-between;
-  flex-wrap: nowrap;
+  align-items: center;
+  flex-wrap: wrap;
+  height: auto;
 `;
 
 const newsList = gql`

@@ -80,6 +80,10 @@ const TwoElementsHolder = styled.div`
   padding-left: 5px;
 `;
 
+const TallerText = styled.span`
+  font-weight: 600;
+`;
+
 export const ProductBlock = ({
   title,
   description,
@@ -96,7 +100,9 @@ export const ProductBlock = ({
         <ReadMore> see more...</ReadMore>
       </PhoneDescription>
       <TwoElementsHolder>
-        <Price>Price: {price}$</Price>
+        <Price>
+          Price: <TallerText>{price}$</TallerText>
+        </Price>
         <Cart />
       </TwoElementsHolder>
     </ProductDiv>

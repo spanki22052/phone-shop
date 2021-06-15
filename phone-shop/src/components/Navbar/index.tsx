@@ -1,10 +1,11 @@
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Label } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../redux/hooks/useTypedSelector';
 import { cartActionType, sidebarActionTypes } from '../../redux/reducers/types';
+import { Logo } from '../Sidebar';
 
 const Button = styled.button`
   background-color: #274472;
@@ -60,14 +61,6 @@ const NavEnd = styled.div`
   align-items: center;
 `;
 
-const Form = styled.form`
-  width: auto;
-  height: auto;
-  display: flex;
-  justify-content: row;
-  flex-wrap: wrap;
-`;
-
 const NavbarComponent = () => {
   const [searchbarState, setSearchbar] = useState('');
   const cartVisibleState = useTypedSelector((state) => state.cartState);
@@ -76,9 +69,18 @@ const NavbarComponent = () => {
   return (
     <WidthCheker className="WidthChecker">
       <Navbar style={{ borderBottom: '1px solid #274472' }} expand="lg">
-        <Container style={{ paddingRight: '10px' }}>
+        <Container
+          style={{
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'space-around',
+          }}
+        >
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Logo>SMASH</Logo>
+            </Nav>
             <Nav className="me-auto">
               <InputForm
                 onSubmit={(e) => {
